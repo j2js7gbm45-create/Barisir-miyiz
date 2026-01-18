@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bir Şey Soracağım...</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #ffafbd, #ffc3a0);
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+}
+
+.container {
+  text-align: center;
+}
+
+h2 {
+  font-size: 26px;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+button {
+  padding: 15px 25px;
+  font-size: 18px;
+  border: none;
+  border-radius: 12px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+#yes {
+  background: #ff3366;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+#no {
+  background: #eee;
+  position: absolute;
+}
+
+.heart {
+  position: fixed;
+  color: red;
+  font-size: 24px;
+  animation: floatUp 3s linear forwards;
+}
+
+@keyframes floatUp {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(-200px); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h2>Benimle barışır mısın? 🥺❤️</h2>
+  <button id="yes">Evet</button>
+  <button id="no">Hayır</button>
+</div>
+
+<script>
+let yesSize = 18;
+const yesBtn = document.getElementById("yes");
+const noBtn = document.getElementById("no");
+
+noBtn.addEventListener("click", () => {
+  // Evet büyür
+  yesSize += 15;
+  yesBtn.style.fontSize = yesSize + "px";
+  yesBtn.style.padding = (yesSize) + "px";
+
+  // Hayır kaçar
+  const x = Math.random() * (window.innerWidth - 100);
+  const y = Math.random() * (window.innerHeight - 50);
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+
+  // Kalp çıkar
+  createHeart();
+
+  // Tam ekran evet
+  if (yesSize > 80) {
+    yesBtn.style.position = "fixed";
+    yesBtn.style.top = 0;
+    yesBtn.style.left = 0;
+    yesBtn.style.width = "100vw";
+    yesBtn.style.height = "100vh";
+    yesBtn.style.fontSize = "60px";
+  }
+});
+
+yesBtn.addEventListener("click", () => {
+  document.body.innerHTML = `
+    <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;height:100vh;color:white;text-align:center;">
+      <h1>YAŞASINNN 💖💖💖</h1>
+      <h2>Barıştık 😍</h2>
+      <p>Seni çok seviyorum 💕</p>
+    </div>
+  `;
+});
+
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "❤️";
+  heart.style.left = Math.random() * window.innerWidth + "px";
+  heart.style.top = window.innerHeight + "px";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 3000);
+}
+</script>
+
+</body>
+</html>
