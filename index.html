@@ -1,127 +1,138 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <title>Barışalım mı</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spru Sen Salak Mısın?</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #111;
+    font-family: Arial, sans-serif;
+    color: white;
+    overflow: hidden;
+  }
 
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #ffc0cb;
-      font-family: Arial, sans-serif;
-    }
+  .container {
+    text-align: center;
+  }
 
-    .container {
-      text-align: center;
-    }
+  h1 {
+    font-size: 40px;
+    margin-bottom: 20px;
+  }
 
-    #question {
-      font-size: 26px;
-      color: #8b004f;
-      margin-bottom: 30px;
-    }
+  #buttons {
+    margin-top: 30px;
+  }
 
-    button {
-      font-size: 20px;
-      padding: 14px 28px;
-      border: none;
-      border-radius: 16px;
-      cursor: pointer;
-      margin: 10px;
-    }
+  button {
+    font-size: 24px;
+    padding: 15px 30px;
+    margin: 10px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
 
-    #yesBtn {
-      background: #ff3b7d;
-      color: white;
-      transition: all 0.3s ease;
-    }
+  #yes {
+    background: #00b894;
+    color: white;
+    transform: scale(1);
+  }
 
-    #noBtn {
-      background: white;
-      color: #8b004f;
-    }
+  #no {
+    background: #d63031;
+    color: white;
+  }
 
-    #result {
-      display: none;
-      font-size: 26px;
-      font-weight: bold;
-      color: #8b004f;
-      margin-bottom: 20px;
-    }
+  #message {
+    font-size: 28px;
+    margin-top: 30px;
+    display: none;
+  }
 
-    #photo {
-      display: none;
-      width: 280px;
-      max-width: 85%;
-      border-radius: 18px;
-    }
-  </style>
+  .full-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #111;
+    z-index: 9999;
+  }
+
+  .full-screen button {
+    width: 100%;
+    height: 100%;
+    font-size: 60px;
+    border-radius: 0;
+  }
+</style>
 </head>
 <body>
 
-  <div class="container">
-    <div id="result">
-      Kaldığımız yerden… yeni gelmedik, geri geldik. ❤️
-    </div>
+<div class="container">
+  <h1>Spru sen salak mısın?</h1>
 
-    <div id="question">
-      Benimle barışır mısın? 💔
-    </div>
-
-    <button id="yesBtn" onclick="yesClick()">Evet</button>
-    <button id="noBtn" onclick="noClick()">Hayır</button>
-
-    <br>
-
-    <img
-      id="photo"
-      src="https://i.ibb.co/Mxppz0mG/931b4491-856e-499e-869a-68b0f30e803f.jpg"
-      alt="fotoğraf"
-    >
+  <div id="buttons">
+    <button id="yes">Evet</button>
+    <button id="no">Hayır</button>
   </div>
 
-  <script>
-    let noCount = 0;
+  <div id="message"></div>
+</div>
 
-    function noClick() {
-      noCount++;
+<script>
+  let noCount = 0;
+  const yesBtn = document.getElementById('yes');
+  const noBtn = document.getElementById('no');
+  const message = document.getElementById('message');
 
-      const yesBtn = document.getElementById("yesBtn");
-      const noBtn = document.getElementById("noBtn");
+  // Evet butonuna basıldığında
+  yesBtn.addEventListener('click', () => {
+    message.style.display = 'block';
+    message.innerText = "ahahhaha biliyorum salak olduğunu";
+  });
 
-      // EVET yavaş yavaş büyüsün
-      yesBtn.style.padding = `${14 + noCount * 6}px ${28 + noCount * 14}px`;
-      yesBtn.style.fontSize = `${20 + noCount * 2}px`;
+  // Hayır butonuna basıldığında
+  noBtn.addEventListener('click', () => {
+    noCount++;
 
-      // 10. hayırdan sonra
-      if (noCount >= 10) {
-        noBtn.style.display = "none";
+    // Evet butonu büyüyor
+    yesBtn.style.transform = `scale(${1 + noCount * 0.15})`;
 
-        yesBtn.style.position = "fixed";
-        yesBtn.style.top = "0";
-        yesBtn.style.left = "0";
-        yesBtn.style.width = "100vw";
-        yesBtn.style.height = "100vh";
-        yesBtn.style.margin = "0";
-        yesBtn.style.borderRadius = "0";
-        yesBtn.style.fontSize = "48px";
-      }
+    // 10 kez hayır basılırsa
+    if (noCount >= 10) {
+      noBtn.style.display = 'none';
+
+      // Tam ekran evet
+      const fullScreenDiv = document.createElement('div');
+      fullScreenDiv.className = 'full-screen';
+
+      const fullYesBtn = document.createElement('button');
+      fullYesBtn.innerText = 'EVET';
+
+      fullYesBtn.addEventListener('click', () => {
+        fullScreenDiv.remove();
+        message.style.display = 'block';
+        message.innerText = "ahahhaha biliyorum salak olduğunu";
+      });
+
+      fullScreenDiv.appendChild(fullYesBtn);
+      document.body.appendChild(fullScreenDiv);
     }
-
-    function yesClick() {
-      document.getElementById("question").style.display = "none";
-      document.getElementById("yesBtn").style.display = "none";
-      document.getElementById("noBtn").style.display = "none";
-
-      document.getElementById("result").style.display = "block";
-      document.getElementById("photo").style.display = "block";
-    }
-  </script>
+  });
+</script>
 
 </body>
 </html>
