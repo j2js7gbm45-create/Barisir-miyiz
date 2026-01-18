@@ -7,88 +7,82 @@
 <style>
     body {
         margin: 0;
+        width: 100vw;
         height: 100vh;
-        background: #ffb6c1;
-        font-family: Arial, sans-serif;
+        background: pink;
         overflow: hidden;
-    }
-
-    .container {
-        position: relative;
-        z-index: 10;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
+        font-family: Arial, sans-serif;
     }
 
     h1 {
-        font-size: 40px;
+        text-align: center;
+        margin-top: 15vh;
         color: #b30059;
-        margin-bottom: 30px;
+        font-size: 38px;
+        z-index: 2;
+        position: relative;
     }
 
-    button {
+    #yes, #no {
+        display: block;
+        margin: 20px auto;
         border: none;
         border-radius: 20px;
         cursor: pointer;
-        transition: all 0.3s ease;
+        font-size: 22px;
     }
 
     #yes {
         background: #ff1493;
         color: white;
-        font-size: 22px;
-        padding: 15px 40px;
-        min-width: 160px;
+        width: 160px;
+        height: 60px;
+        transition: width 0.3s, height 0.3s, font-size 0.3s;
     }
 
     #no {
         background: #ff3366;
         color: white;
-        font-size: 22px;
-        padding: 15px 40px;
-        margin-top: 15px;
+        width: 160px;
+        height: 60px;
     }
 
-    /* EVET tam ekran */
     .fullscreen {
         position: fixed;
         top: 0;
         left: 0;
-        width: 100vw;
-        height: 100vh;
+        width: 100vw !important;
+        height: 100vh !important;
         font-size: 80px !important;
         border-radius: 0 !important;
-        z-index: 20;
+        z-index: 10;
     }
 
     /* ❤️ Kalpler */
     .heart {
         position: fixed;
-        bottom: -40px;
-        font-size: 24px;
+        bottom: -30px;
+        font-size: 28px;
         color: #ff1a75;
+        animation: floatUp linear forwards;
         pointer-events: none;
-        animation: fly linear forwards;
     }
 
-    @keyframes fly {
+    @keyframes floatUp {
         from {
-            transform: translate(0, 0);
+            transform: translateX(0) translateY(0);
             opacity: 1;
         }
         to {
-            transform: translate(var(--x), -120vh);
+            transform: translateX(var(--x)) translateY(-120vh);
             opacity: 0;
         }
     }
 
     img {
         max-width: 80%;
-        margin-top: 30px;
+        display: block;
+        margin: 30px auto;
         border-radius: 20px;
     }
 </style>
@@ -96,29 +90,27 @@
 
 <body>
 
-<div class="container" id="app">
-    <h1>Benimle barışır mısın?</h1>
-    <button id="yes">Evet</button>
-    <button id="no">Hayır</button>
-</div>
+<h1 id="question">Benimle barışır mısın?</h1>
+<button id="yes">Evet</button>
+<button id="no">Hayır</button>
 
 <script>
 let noCount = 0;
 
 const yesBtn = document.getElementById("yes");
 const noBtn = document.getElementById("no");
-const app = document.getElementById("app");
+const question = document.getElementById("question");
 
-/* Hayır */
+/* HAYIR TIKLAMA */
 noBtn.addEventListener("click", () => {
     if (noCount >= 10) return;
 
     noCount++;
 
-    // EVET GERÇEKTEN büyüyor
+    // EVET GÖZLE GÖRÜLÜR BÜYÜR
+    yesBtn.style.width = 160 + noCount * 40 + "px";
+    yesBtn.style.height = 60 + noCount * 20 + "px";
     yesBtn.style.fontSize = 22 + noCount * 6 + "px";
-    yesBtn.style.padding =
-        15 + noCount * 4 + "px " + (40 + noCount * 10) + "px";
 
     if (noCount === 10) {
         noBtn.remove();
@@ -127,24 +119,26 @@ noBtn.addEventListener("click", () => {
     }
 });
 
-/* EVET */
+/* EVET TIKLAMA */
 yesBtn.addEventListener("click", () => {
-    app.innerHTML = `
-        <h1>kaldığımız yerden…<br>yeni gelmedik geri geldik 💞</h1>
+    document.body.innerHTML = `
+        <h1 style="margin-top:10vh;color:#b30059;text-align:center;">
+            kaldığımız yerden…<br>yeni gelmedik geri geldik 💞
+        </h1>
         <img src="https://i.ibb.co/rRMMBrVc/931b4491-856e-499e-869a-68b0f30e803f.jpg">
     `;
 });
 
-/* Kalp üretimi */
+/* ❤️ KALP ÜRETİCİ */
 function createHeart() {
     const heart = document.createElement("div");
     heart.className = "heart";
-    heart.textContent = "❤";
+    heart.innerHTML = "❤";
 
     heart.style.left = Math.random() * 100 + "vw";
-    heart.style.fontSize = Math.random() * 30 + 15 + "px";
+    heart.style.fontSize = Math.random() * 20 + 20 + "px";
 
-    // Sağ-sol çapraz hareket
+    // Sağ / sol çapraz
     const xMove = (Math.random() < 0.5 ? -1 : 1) * (Math.random() * 200 + 50);
     heart.style.setProperty("--x", xMove + "px");
 
@@ -156,6 +150,7 @@ function createHeart() {
     setTimeout(() => heart.remove(), duration * 1000);
 }
 
+// Sürekli kalp
 setInterval(createHeart, 200);
 </script>
 
