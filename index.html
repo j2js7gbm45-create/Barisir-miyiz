@@ -19,32 +19,34 @@
         margin-top: 15vh;
         color: #b30059;
         font-size: 38px;
-        z-index: 2;
         position: relative;
+        z-index: 2;
     }
 
     #yes, #no {
         display: block;
-        margin: 20px auto;
+        margin: 25px auto;
         border: none;
-        border-radius: 20px;
+        border-radius: 25px;
         cursor: pointer;
-        font-size: 22px;
+        font-size: 24px;
     }
 
     #yes {
         background: #ff1493;
         color: white;
-        width: 160px;
-        height: 60px;
+        width: 170px;
+        height: 65px;
         transition: width 0.3s, height 0.3s, font-size 0.3s;
     }
 
+    /* 🔴 HAYIR BÜYÜTÜLDÜ */
     #no {
         background: #ff3366;
         color: white;
-        width: 160px;
-        height: 60px;
+        width: 220px;
+        height: 80px;
+        font-size: 26px;
     }
 
     .fullscreen {
@@ -99,18 +101,17 @@ let noCount = 0;
 
 const yesBtn = document.getElementById("yes");
 const noBtn = document.getElementById("no");
-const question = document.getElementById("question");
 
-/* HAYIR TIKLAMA */
+/* HAYIR */
 noBtn.addEventListener("click", () => {
     if (noCount >= 10) return;
 
     noCount++;
 
     // EVET GÖZLE GÖRÜLÜR BÜYÜR
-    yesBtn.style.width = 160 + noCount * 40 + "px";
-    yesBtn.style.height = 60 + noCount * 20 + "px";
-    yesBtn.style.fontSize = 22 + noCount * 6 + "px";
+    yesBtn.style.width = 170 + noCount * 45 + "px";
+    yesBtn.style.height = 65 + noCount * 25 + "px";
+    yesBtn.style.fontSize = 24 + noCount * 6 + "px";
 
     if (noCount === 10) {
         noBtn.remove();
@@ -119,7 +120,7 @@ noBtn.addEventListener("click", () => {
     }
 });
 
-/* EVET TIKLAMA */
+/* EVET */
 yesBtn.addEventListener("click", () => {
     document.body.innerHTML = `
         <h1 style="margin-top:10vh;color:#b30059;text-align:center;">
@@ -129,16 +130,15 @@ yesBtn.addEventListener("click", () => {
     `;
 });
 
-/* ❤️ KALP ÜRETİCİ */
+/* ❤️ Kalpler */
 function createHeart() {
     const heart = document.createElement("div");
     heart.className = "heart";
-    heart.innerHTML = "❤";
+    heart.textContent = "❤";
 
     heart.style.left = Math.random() * 100 + "vw";
     heart.style.fontSize = Math.random() * 20 + 20 + "px";
 
-    // Sağ / sol çapraz
     const xMove = (Math.random() < 0.5 ? -1 : 1) * (Math.random() * 200 + 50);
     heart.style.setProperty("--x", xMove + "px");
 
@@ -146,11 +146,9 @@ function createHeart() {
     heart.style.animationDuration = duration + "s";
 
     document.body.appendChild(heart);
-
     setTimeout(() => heart.remove(), duration * 1000);
 }
 
-// Sürekli kalp
 setInterval(createHeart, 200);
 </script>
 
