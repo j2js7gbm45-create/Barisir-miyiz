@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>Barışır mıyız</title>
+  <title>Barışalım mı</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
@@ -12,7 +12,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background: #ffc0cb; /* PEMBE */
+      background: #ffc0cb;
       font-family: Arial, sans-serif;
     }
 
@@ -38,7 +38,7 @@
     #yesBtn {
       background: #ff3b7d;
       color: white;
-      transition: transform 0.25s ease;
+      transition: all 0.3s ease;
     }
 
     #noBtn {
@@ -87,25 +87,29 @@
 
   <script>
     let noCount = 0;
-    let scale = 1;
 
     function noClick() {
       noCount++;
-      scale += 0.35;
 
       const yesBtn = document.getElementById("yesBtn");
-      yesBtn.style.transform = "scale(" + scale + ")";
+      const noBtn = document.getElementById("noBtn");
 
-      // 10. hayırdan sonra TAM EKRAN
+      // EVET yavaş yavaş büyüsün
+      yesBtn.style.padding = `${14 + noCount * 6}px ${28 + noCount * 14}px`;
+      yesBtn.style.fontSize = `${20 + noCount * 2}px`;
+
+      // 10. hayırdan sonra
       if (noCount >= 10) {
+        noBtn.style.display = "none";
+
         yesBtn.style.position = "fixed";
         yesBtn.style.top = "0";
         yesBtn.style.left = "0";
         yesBtn.style.width = "100vw";
         yesBtn.style.height = "100vh";
+        yesBtn.style.margin = "0";
         yesBtn.style.borderRadius = "0";
         yesBtn.style.fontSize = "48px";
-        yesBtn.style.transform = "scale(1)";
       }
     }
 
