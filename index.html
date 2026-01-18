@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>Barışır mıyız?</title>
+  <title>Kaldığımız Yerden</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
@@ -19,12 +20,19 @@
       padding: 25px;
       border-radius: 15px;
       text-align: center;
-      max-width: 320px;
+      max-width: 330px;
       width: 90%;
       box-shadow: 0 5px 15px rgba(0,0,0,0.15);
     }
     h2 {
-      margin-bottom: 20px;
+      margin-bottom: 15px;
+    }
+    #result {
+      display: none;
+      font-size: 20px;
+      font-weight: bold;
+      color: #e91e63;
+      margin-bottom: 15px;
     }
     button {
       font-size: 18px;
@@ -44,6 +52,10 @@
       color: white;
     }
     img {
+      display: none;
+      width: 260px;
+      max-width: 85%;
+      border-radius: 15px;
       margin-top: 15px;
     }
   </style>
@@ -51,16 +63,17 @@
 <body>
 
   <div class="box">
-    <h2>Benimle barışır mısın? 💔</h2>
+    <div id="result">
+      Kaldığımız yerden… yeni gelmedik, geri geldik. ❤️
+    </div>
+
+    <h2 id="question">Benimle barışır mısın? 💔</h2>
 
     <button id="yesBtn" onclick="yesClick()">Evet</button>
     <button id="noBtn" onclick="noClick()">Hayır</button>
 
-    <div>
-      <img id="photo"
-        src="https://i.ibb.co/Mxppz0mG/931b4491-856e-499e-869a-68b0f30e803f.jpg"
-        style="display:none;width:260px;max-width:85%;border-radius:15px;">
-    </div>
+    <img id="photo"
+      src="https://i.ibb.co/Mxppz0mG/931b4491-856e-499e-869a-68b0f30e803f.jpg">
   </div>
 
   <script>
@@ -79,9 +92,12 @@
     }
 
     function yesClick() {
-      document.getElementById("photo").style.display = "block";
+      document.getElementById("question").style.display = "none";
       document.getElementById("yesBtn").style.display = "none";
       document.getElementById("noBtn").style.display = "none";
+
+      document.getElementById("result").style.display = "block";
+      document.getElementById("photo").style.display = "block";
     }
   </script>
 
