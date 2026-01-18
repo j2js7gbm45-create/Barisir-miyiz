@@ -5,10 +5,6 @@
 <title>Barışalım mı?</title>
 
 <style>
-    * {
-        box-sizing: border-box;
-    }
-
     body {
         margin: 0;
         height: 100vh;
@@ -19,7 +15,7 @@
 
     .container {
         position: relative;
-        z-index: 5;
+        z-index: 10;
         height: 100vh;
         display: flex;
         flex-direction: column;
@@ -29,14 +25,14 @@
     }
 
     h1 {
-        color: #b30059;
         font-size: 40px;
+        color: #b30059;
         margin-bottom: 30px;
     }
 
     button {
         border: none;
-        border-radius: 15px;
+        border-radius: 20px;
         cursor: pointer;
         transition: all 0.3s ease;
     }
@@ -46,6 +42,7 @@
         color: white;
         font-size: 22px;
         padding: 15px 40px;
+        min-width: 160px;
     }
 
     #no {
@@ -63,27 +60,28 @@
         left: 0;
         width: 100vw;
         height: 100vh;
-        font-size: 70px !important;
+        font-size: 80px !important;
         border-radius: 0 !important;
-        z-index: 10;
+        z-index: 20;
     }
 
-    /* Kalpler */
+    /* ❤️ Kalpler */
     .heart {
         position: fixed;
-        bottom: -30px;
+        bottom: -40px;
+        font-size: 24px;
         color: #ff1a75;
-        animation: floatUp linear forwards;
         pointer-events: none;
+        animation: fly linear forwards;
     }
 
-    @keyframes floatUp {
+    @keyframes fly {
         from {
-            transform: translateY(0);
+            transform: translate(0, 0);
             opacity: 1;
         }
         to {
-            transform: translateY(-110vh);
+            transform: translate(var(--x), -120vh);
             opacity: 0;
         }
     }
@@ -106,19 +104,21 @@
 
 <script>
 let noCount = 0;
+
 const yesBtn = document.getElementById("yes");
 const noBtn = document.getElementById("no");
 const app = document.getElementById("app");
 
-/* Hayır tıklama */
+/* Hayır */
 noBtn.addEventListener("click", () => {
     if (noCount >= 10) return;
 
     noCount++;
 
-    // EVET her seferinde büyür
-    const scale = 1 + noCount * 0.15;
-    yesBtn.style.transform = `scale(${scale})`;
+    // EVET GERÇEKTEN büyüyor
+    yesBtn.style.fontSize = 22 + noCount * 6 + "px";
+    yesBtn.style.padding =
+        15 + noCount * 4 + "px " + (40 + noCount * 10) + "px";
 
     if (noCount === 10) {
         noBtn.remove();
@@ -127,7 +127,7 @@ noBtn.addEventListener("click", () => {
     }
 });
 
-/* EVET tıklama */
+/* EVET */
 yesBtn.addEventListener("click", () => {
     app.innerHTML = `
         <h1>kaldığımız yerden…<br>yeni gelmedik geri geldik 💞</h1>
@@ -135,24 +135,28 @@ yesBtn.addEventListener("click", () => {
     `;
 });
 
-/* Kalp üretici */
+/* Kalp üretimi */
 function createHeart() {
     const heart = document.createElement("div");
     heart.className = "heart";
     heart.textContent = "❤";
+
     heart.style.left = Math.random() * 100 + "vw";
     heart.style.fontSize = Math.random() * 30 + 15 + "px";
+
+    // Sağ-sol çapraz hareket
+    const xMove = (Math.random() < 0.5 ? -1 : 1) * (Math.random() * 200 + 50);
+    heart.style.setProperty("--x", xMove + "px");
+
     const duration = Math.random() * 3 + 4;
     heart.style.animationDuration = duration + "s";
 
     document.body.appendChild(heart);
 
-    setTimeout(() => {
-        heart.remove();
-    }, duration * 1000);
+    setTimeout(() => heart.remove(), duration * 1000);
 }
 
-setInterval(createHeart, 250);
+setInterval(createHeart, 200);
 </script>
 
 </body>
