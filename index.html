@@ -2,8 +2,9 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>Kaldığımız Yerden</title>
+  <title>Barışır mıyız</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
     body {
       margin: 0;
@@ -11,7 +12,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background: #ffb6c1; /* PEMBE */
+      background: #ffc0cb; /* PEMBE */
       font-family: Arial, sans-serif;
     }
 
@@ -21,35 +22,35 @@
 
     #question {
       font-size: 26px;
-      margin-bottom: 25px;
-      color: #880e4f;
+      color: #8b004f;
+      margin-bottom: 30px;
     }
 
     button {
       font-size: 20px;
-      padding: 12px 24px;
+      padding: 14px 28px;
       border: none;
-      border-radius: 12px;
+      border-radius: 16px;
       cursor: pointer;
       margin: 10px;
     }
 
     #yesBtn {
-      background: #ff4081;
+      background: #ff3b7d;
       color: white;
-      transition: transform 0.25s;
+      transition: transform 0.25s ease;
     }
 
     #noBtn {
-      background: #ffffff;
-      color: #880e4f;
+      background: white;
+      color: #8b004f;
     }
 
     #result {
       display: none;
       font-size: 26px;
       font-weight: bold;
-      color: #880e4f;
+      color: #8b004f;
       margin-bottom: 20px;
     }
 
@@ -68,42 +69,43 @@
       Kaldığımız yerden… yeni gelmedik, geri geldik. ❤️
     </div>
 
-    <div id="question">Benimle barışır mısın? 💔</div>
+    <div id="question">
+      Benimle barışır mısın? 💔
+    </div>
 
     <button id="yesBtn" onclick="yesClick()">Evet</button>
     <button id="noBtn" onclick="noClick()">Hayır</button>
 
     <br>
 
-    <img id="photo"
-      src="https://i.ibb.co/Mxppz0mG/931b4491-856e-499e-869a-68b0f30e803f.jpg">
+    <img
+      id="photo"
+      src="https://i.ibb.co/Mxppz0mG/931b4491-856e-499e-869a-68b0f30e803f.jpg"
+      alt="fotoğraf"
+    >
   </div>
 
   <script>
-    let scale = 1;
     let noCount = 0;
+    let scale = 1;
 
     function noClick() {
       noCount++;
-      scale += 0.6;
+      scale += 0.35;
 
       const yesBtn = document.getElementById("yesBtn");
       yesBtn.style.transform = "scale(" + scale + ")";
 
-      // EVET büyüdükçe ekrana yayılsın
-      if (scale >= 5) {
+      // 10. hayırdan sonra TAM EKRAN
+      if (noCount >= 10) {
         yesBtn.style.position = "fixed";
         yesBtn.style.top = "0";
         yesBtn.style.left = "0";
         yesBtn.style.width = "100vw";
         yesBtn.style.height = "100vh";
         yesBtn.style.borderRadius = "0";
-        yesBtn.style.fontSize = "40px";
-      }
-
-      // 3. hayırdan sonra kaybolsun
-      if (noCount >= 3) {
-        document.getElementById("noBtn").style.display = "none";
+        yesBtn.style.fontSize = "48px";
+        yesBtn.style.transform = "scale(1)";
       }
     }
 
